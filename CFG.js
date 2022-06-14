@@ -1,6 +1,13 @@
-var examplegrammar = ["SENTENCE -> The NOUN | The NOUN VERB the NOUN | EPSILON",
-								"NOUN -> cat | dog | frog | toad",
-                "VERB -> jumps over | eats | kisses"];
+// Function for example buttons
+function replace(type) {
+	if (type == "sentence") {
+  	document.getElementById("cfginput").value = "SENTENCE -> The NOUN | The NOUN VERB the NOUN | EPSILON\nNOUN -> cat | dog | frog | toad\nVERB -> jumps over | eats | kisses"
+  } else if (type == "number") {
+  	document.getElementById("cfginput").value = "SENTENCE -> REALEXP | INT\nREALEXP -> REALeINT | REAL\nREAL -> INT.UNSIGNED | INT\nINT -> -UNSIGNED | UNSIGNED\nUNSIGNED -> DIGIT | UNSIGNEDDIGIT\nDIGIT -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9"
+  } else if (type == "expression") {
+  	document.getElementById("cfginput").value = "SENTENCE -> TERM + SENTENCE | TERM - SENTENCE | TERM\nTERM -> SUBTERM * TERM | SUBTERM / TERM | SUBTERM\nSUBTERM -> FACTOR ^ SUBTERM | FACTOR\nFACTOR -> (SENTENCE) | -FACTOR  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9"
+  }
+}
 
 // Build the grammar
 function buildGrammar(cfginput) {
@@ -74,5 +81,3 @@ function generate() {
   console.log(sentence);
   document.getElementById("generatedsentence").innerHTML = sentence;
 }
-
-//console.log(generateSentence(buildGrammar(grammar)));
