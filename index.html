@@ -17,19 +17,21 @@
     </ul>
 
     <div id="examplebuttons">
-      <button id="sentencebutton" name="sentencebutton" onclick="replace('sentence')">Sentence Example</button>
-      <button id="numberbutton" name="numberbutton" onclick="replace('number')">Number Example</button>
-      <button id="expressionbutton" name="expressionbutton" onclick="replace('expression')">Expression Example</button>
+      <button id="sentencebutton" name="sentencebutton" class="button" onclick="replace('sentence')">Sentence Example</button>
+      <button id="numberbutton" name="numberbutton" class="button" onclick="replace('number')">Number Example</button>
+      <button id="expressionbutton" name="expressionbutton" class="button" onclick="replace('expression')">Expression Example</button>
     </div>
+    
 
     <textarea id="cfginput" name="cfginput" rows="8" cols="100">
-  SENTENCE -> The NOUN | The NOUN VERB the NOUN | EPSILON
-  NOUN -> cat | dog | frog | toad
-  VERB -> jumps over | eats | kisses
+SENTENCE -> The NOUN | The NOUN VERB the NOUN | EPSILON
+NOUN -> cat | dog | frog | toad
+VERB -> jumps over | eats | kisses
     </textarea>
-    
+   
     <br/>
-    <button id="generatebutton" name="generatebutton" onclick="generate()">Generate</button>
+    <br/>
+    <button class="submitbutton" id="generatebutton" name="generatebutton" onclick="generate()">Generate</button>
     <br/>
     
     <p id="generatedsentence" name="generatedsentence"></p>
