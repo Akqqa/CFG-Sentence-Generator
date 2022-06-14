@@ -1,0 +1,88 @@
+body {
+  font-family: "helvetica";
+}
+
+/* button taken from https://getcssscan.com/css-buttons-examples */
+.button {
+  background-color: #e1ecf4;
+  border-radius: 3px;
+  border: 1px solid #7aa7c7;
+  box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #39739d;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "helvetica"",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #b3d3ea;
+  color: #2c5777;
+}
+
+.button:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.button:active {
+  background-color: #a0c7e4;
+  box-shadow: none;
+  color: #2c5777;
+}
+
+/*Submit button*/
+
+.submitbutton {
+  background-color: #c0f5bf;
+  border-radius: 3px;
+  border: 1px solid #62de5f;
+  box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #2e9c2c;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "helvetica"",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.submitbutton:hover,
+.submitbutton:focus {
+  background-color: #92e691;
+  color: #2c5777;
+}
+
+.submitbutton:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.submitbutton:active {
+  background-color: #a0c7e4;
+  box-shadow: none;
+  color: #166614;
+}
