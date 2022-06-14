@@ -4,7 +4,7 @@ var examplegrammar = ["SENTENCE -> The NOUN | The NOUN VERB the NOUN | EPSILON",
 
 // Build the grammar
 function buildGrammar(cfginput) {
-	var productions = {};
+	var productions = {EPSILON : []};
   const nameregex = /^([A-Za-z]+) -> /
 
   for (var prod of cfginput) {
@@ -22,7 +22,11 @@ function buildGrammar(cfginput) {
 // Generate random sentence
 function generateSentence(productions) {
   let allproductions = Object.keys(productions);
-  let prodregex = new RegExp(allproductions.join("|") + "|EPSILON");
+  // Sorts in reverse alphabetical order to ensure longer names containing the same starts as other names come first
+  // E.G realexp should come before real as otherwise the "real" would be matched with the regex, instead of realexp as a whole
+  allproductions.sort();
+	allproductions.reverse();
+  let prodregex = new RegExp(allproductions.join("|"));
   let generating = true;
   let baseDate = new Date();
   
