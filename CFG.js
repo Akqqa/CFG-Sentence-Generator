@@ -1,4 +1,4 @@
-var grammar = ["SENTENCE -> The NOUN | The NOUN VERB the NOUN | EPSILON",
+var examplegrammar = ["SENTENCE -> The NOUN | The NOUN VERB the NOUN | EPSILON",
 								"NOUN -> cat | dog | frog | toad",
                 "VERB -> jumps over | eats | kisses"];
 
@@ -7,8 +7,11 @@ function buildGrammar(cfginput) {
 	var productions = {};
   const nameregex = /^([A-Za-z]+) -> /
 
-  for (var prod of grammar) {
+  for (var prod of cfginput) {
     var found = prod.match(nameregex);
+    if (found == null) {
+    	continue;
+    }
     var options = prod.replace(nameregex, "").split(" | ");
     productions[found[1]] = options;
 	}
@@ -37,3 +40,14 @@ function generateSentence(productions) {
   }
   return sentence;
 }
+
+// Event handler
+function generate() {
+	let grammar = document.getElementById("cfginput").value.split(/\r?\n/)
+  let build = buildGrammar(grammar);
+  let sentence = generateSentence(build);
+  console.log(sentence);
+  document.getElementById("generatedsentence").innerHTML = sentence;
+}
+
+//console.log(generateSentence(buildGrammar(grammar)));
