@@ -5,7 +5,7 @@ function replace(type) {
   } else if (type == "number") {
   	document.getElementById("cfginput").value = "SENTENCE -> REALEXP | INT\nREALEXP -> REALeINT | REAL\nREAL -> INT.UNSIGNED | INT\nINT -> -UNSIGNED | UNSIGNED\nUNSIGNED -> DIGIT | UNSIGNEDDIGIT\nDIGIT -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9"
   } else if (type == "expression") {
-  	document.getElementById("cfginput").value = "SENTENCE -> TERM + SENTENCE | TERM - SENTENCE | TERM\nTERM -> SUBTERM * TERM | SUBTERM / TERM | SUBTERM\nSUBTERM -> FACTOR ^ SUBTERM | FACTOR\nFACTOR -> (SENTENCE) | -FACTOR  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9"
+  	document.getElementById("cfginput").value = "SENTENCE -> TERM + SENTENCE | TERM - SENTENCE | TERM\nTERM -> SUBTERM * TERM | SUBTERM / TERM | SUBTERM ~ 1,1,2\nSUBTERM -> FACTOR ^ SUBTERM | FACTOR ~ 1,10\nFACTOR -> (SENTENCE) | -FACTOR | DIGIT ~ 1,2,4\nDIGIT -> 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9"
   }
 }
 
@@ -13,14 +13,35 @@ function replace(type) {
 function buildGrammar(cfginput) {
 	var productions = {EPSILON : []};
   const nameregex = /^([A-Za-z]+) -> /
+  const distregex = / ~ (([1-9]\d*,)*[1-9]\d*)/
 
   for (var prod of cfginput) {
     var found = prod.match(nameregex);
     if (found == null) {
     	continue;
     }
-    var options = prod.replace(nameregex, "").split(" | ");
-    productions[found[1]] = options;
+    
+    var options = prod.replace(nameregex, "").replace(distregex, "").split(" | ");
+    var probabilities = [];
+    for (var option of options) {
+    	probabilities.push(1);
+    }
+    
+    // Checks for distributions
+    var dist = prod.match(distregex);
+    if (dist != null) {
+    	probabilities = dist[1].split(",");
+      probabilities = probabilities.map(prob => parseInt(prob));
+    }
+    
+    // Error if user does not enter enough probabilities
+    if (probabilities.length != options.length) {
+    	return null;
+    }
+    
+    var arr = [options, probabilities];
+    
+    productions[found[1]] = arr;
 	}
   
   return productions;
@@ -43,7 +64,6 @@ function generateSentence(productions) {
     let finished = false;
     const startDate = new Date();
     
-    console.log(baseDate.getTime() - startDate.getTime());
     if (startDate.getTime() - baseDate.getTime() > 1000) {
     	return "Error: Valid sentence taken too long to generate. Please check the CFG to ensure there are no infinite loops"
     }
@@ -52,7 +72,6 @@ function generateSentence(productions) {
     	// Discards if taking too long to generate
       let endDate = new Date();
     	if (endDate.getTime() - startDate.getTime() > 50) {
-        console.log("abort");
       	break;
       }
     
@@ -64,7 +83,13 @@ function generateSentence(productions) {
       } else if (match == "EPSILON") {
         sentence = sentence.replace("EPSILON", "");
       } else {
-        var replacement = productions[match][Math.floor(Math.random()*productions[match].length)];
+        let lot = [];
+        for (let i = 0; i < productions[match][0].length; i++) {
+        	for (let j = 0; j < productions[match][1][i]; j++) {
+          	lot.push(productions[match][0][i]);
+          }
+        }
+        var replacement = lot[Math.floor(Math.random()*lot.length)];
         sentence = sentence.replace(match, replacement);
       }
     }
@@ -77,7 +102,11 @@ function generateSentence(productions) {
 function generate() {
 	let grammar = document.getElementById("cfginput").value.split(/\r?\n/)
   let build = buildGrammar(grammar);
-  let sentence = generateSentence(build);
-  console.log(sentence);
+  let sentence;
+  if (!build) {
+  	sentence = "Error: Grammar could not be parsed, please the number of probabilities match the number of productions in that rule."
+  } else {
+  	  sentence = generateSentence(build);
+  }
   document.getElementById("generatedsentence").innerHTML = sentence;
 }
