@@ -15,6 +15,10 @@
       <li>Each production should be of the form: NAME -> prod1 | prod2 | ...</li>
       <li>Use the EPSILON production to represent nothing</li>
     </ul>
+    
+    <p>
+     To assign probabilities for each production being chosen, add them as a ~ followed by a comma-seperated list of numbers to represent the probability of each e.g. ~ 1,7,3,4. See the expression example for this in action.
+    </p>
 
     <div id="examplebuttons">
       <button id="sentencebutton" name="sentencebutton" class="button" onclick="replace('sentence')">Sentence Example</button>
@@ -22,6 +26,7 @@
       <button id="expressionbutton" name="expressionbutton" class="button" onclick="replace('expression')">Expression Example</button>
     </div>
     
+    <br/>
 
     <textarea id="cfginput" name="cfginput" rows="8" cols="100">
 SENTENCE -> The NOUN | The NOUN VERB the NOUN | EPSILON
