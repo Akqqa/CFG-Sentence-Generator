@@ -47,42 +47,52 @@ body {
 /*Submit button*/
 
 .submitbutton {
-  background-color: #c0f5bf;
-  border-radius: 3px;
-  border: 1px solid #62de5f;
-  box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
   box-sizing: border-box;
-  color: #2e9c2c;
+  color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: "helvetica"",sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.15385;
-  margin: 0;
-  outline: none;
-  padding: 8px .8em;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
   position: relative;
   text-align: center;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
-  vertical-align: baseline;
+  touch-action: manipulation;
+  vertical-align: middle;
   white-space: nowrap;
 }
 
-.submitbutton:hover,
-.submitbutton:focus {
-  background-color: #92e691;
-  color: #2c5777;
+.submitbutton:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.submitbutton:hover {
+  background-color: #2c974b;
 }
 
 .submitbutton:focus {
-  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.submitbutton:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
 }
 
 .submitbutton:active {
-  background-color: #a0c7e4;
-  box-shadow: none;
-  color: #166614;
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
