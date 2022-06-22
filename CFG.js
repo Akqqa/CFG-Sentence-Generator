@@ -11,24 +11,28 @@ function replace(type) {
 
 // Build the grammar
 function buildGrammar(cfginput) {
-	var productions = {EPSILON : []};
+	let productions = {EPSILON : []};
   const nameregex = /^([A-Za-z]+) -> /
   const distregex = / ~ (([1-9]\d*,)*[1-9]\d*)/
 
-  for (var prod of cfginput) {
-    var found = prod.match(nameregex);
+  for (let prod of cfginput) {
+    let found = prod.match(nameregex);
     if (found == null) {
     	continue;
     }
     
-    var options = prod.replace(nameregex, "").replace(distregex, "").split(" | ");
-    var probabilities = [];
-    for (var option of options) {
+    // Gets the terminals/nonterminals of the production rule
+    let options = prod.replace(nameregex, "").replace(distregex, "").split(" | ");
+
+    // Makes probabilities equal
+    let probabilities = [];
+    for (let option of options) {
     	probabilities.push(1);
     }
     
     // Checks for distributions
-    var dist = prod.match(distregex);
+    let dist = prod.match(distregex);
+    // If there is a distribution given by the user, replace probabilites with this
     if (dist != null) {
     	probabilities = dist[1].split(",");
       probabilities = probabilities.map(prob => parseInt(prob));
@@ -39,11 +43,12 @@ function buildGrammar(cfginput) {
     	return null;
     }
     
-    var arr = [options, probabilities];
+    let arr = [options, probabilities];
     
     productions[found[1]] = arr;
 	}
   
+  // Returns the grammar as an object
   return productions;
 }
 
@@ -58,16 +63,19 @@ function generateSentence(productions) {
   let generating = true;
   let baseDate = new Date();
   
+  // Keep attempting to generate a valid grammar
   while (generating) {
-  	var sentence = "SENTENCE";
+  	let sentence = "SENTENCE";
   
     let finished = false;
     const startDate = new Date();
     
+    // If this has been looping too long, return error
     if (startDate.getTime() - baseDate.getTime() > 1000) {
     	return "Error: Valid sentence taken too long to generate. Please check the CFG to ensure there are no infinite loops"
     }
 
+    // Loop to randomly replace productions
     while (!finished) {
     	// Discards if taking too long to generate
       let endDate = new Date();
@@ -75,6 +83,7 @@ function generateSentence(productions) {
       	break;
       }
     
+      // Match a production and replace with a valid replacement
       let match = sentence.match(prodregex);
       if (match == null) {
         finished = true;
@@ -83,13 +92,14 @@ function generateSentence(productions) {
       } else if (match == "EPSILON") {
         sentence = sentence.replace("EPSILON", "");
       } else {
+        // Ensures replacements have the given odds of being chosen
         let lot = [];
         for (let i = 0; i < productions[match][0].length; i++) {
         	for (let j = 0; j < productions[match][1][i]; j++) {
           	lot.push(productions[match][0][i]);
           }
         }
-        var replacement = lot[Math.floor(Math.random()*lot.length)];
+        let replacement = lot[Math.floor(Math.random()*lot.length)];
         sentence = sentence.replace(match, replacement);
       }
     }
@@ -99,7 +109,7 @@ function generateSentence(productions) {
 }
 
 // Event handler
-function generate() {
+async function generate() {
 	let grammar = document.getElementById("cfginput").value.split(/\r?\n/)
   let build = buildGrammar(grammar);
   let sentence;

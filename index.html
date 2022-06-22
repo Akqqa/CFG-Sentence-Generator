@@ -6,18 +6,18 @@
   </head>
   
   <body>
-
     <h1>CFG Sentence Generator</h1>
 
     <p>Enter a valid CFG below, and click "generate" to create a random sentence.</p>
+
     <ul>
       <li>The first production must be SENTENCE</li>
       <li>Each production should be of the form: NAME -> prod1 | prod2 | ...</li>
       <li>Use the EPSILON production to represent nothing</li>
     </ul>
-    
+
     <p>
-     To assign probabilities for each production being chosen, add them as a ~ followed by a comma-seperated list of numbers to represent the probability of each e.g. ~ 1,7,3,4. See the expression example for this in action.
+     To assign probabilities for each production being chosen, add them as a ~ followed by a comma-seperated list of numbers to represent the probability of each e.g. ~ 1,7,3,4. See the "expression" example for this in action.
     </p>
 
     <div id="examplebuttons">
@@ -42,6 +42,5 @@ VERB -> jumps over | eats | kisses
     <p id="generatedsentence" name="generatedsentence"></p>
 
     <script src="./CFG.js"></script>
-
   </body>
 </html>
