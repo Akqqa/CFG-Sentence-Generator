@@ -109,8 +109,8 @@ function generateSentence(productions) {
 }
 
 // Event handler
-async function generate() {
-	let grammar = document.getElementById("cfginput").value.split(/\r?\n/)
+function generate() {
+  let grammar = document.getElementById("cfginput").value.split(/\r?\n/)
   let build = buildGrammar(grammar);
   let sentence;
   if (!build) {
