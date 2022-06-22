@@ -65,7 +65,7 @@ function generateSentence(productions) {
   
   // Keep attempting to generate a valid grammar
   while (generating) {
-  	let sentence = "SENTENCE";
+  	var sentence = "SENTENCE";
   
     let finished = false;
     const startDate = new Date();
